@@ -1,0 +1,31 @@
+version: '3'
+services:
+
+  magento:
+    build: docker
+    container_name: jekiapp
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./magento:/var/www/html
+      - ./logs:/var/log/nginx
+      - ./docker/nginx:/var/www/html/conf/nginx
+      - ./docker/20-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    env_file:
+      - .env
+
+  # dev mysql db:
+  db:
+    image: mysql
+    container_name: jekidb
+    volumes:
+      - ./docker/dump:/dump
+      - ./logs:/var/log/mysql:rw
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+
+volumes:
+  db:
