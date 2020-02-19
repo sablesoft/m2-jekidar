@@ -19,7 +19,7 @@ services:
 
   # dev mysql db:
   db:
-    image: mysql
+    image: mysql:5.7
     container_name: jeki-db
     working_dir: /dump
     volumes:
